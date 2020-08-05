@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../header"); %>
+
+<body>
+
+    <%- include("menu"); %>
+
+
+
+    <!-- Material form register -->
+    <div class="card z-depth-0">
+
+        <h5 class="card-header info-color white-text text-center py-4 secondary-color red lighten-1">
+            <strong>학생 정보 수정</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+
+            <!-- Form -->
+            <form id="infoUpdateForm" class="text-center" style="color: #757575;" action="#!">
+
+                <div class="form-row">
+                    <div class="col">
+                        <!-- First name -->
+                        <div class="md-form">
+                            <% if(user.barcode_id === undefined) { %>
+                            <input type="text" id="barcode_id" required class="form-control">
+                            <label for="barcode_id">학생증 바코드의 아이디를 입력하세요.</label>
+                            <% } else { %>
+                            <input type="text" value="<%= user.barcode_id %>" id="barcode_id" required
+                                class="form-control">
+                            <label for="barcode_id">바코드 아이디</label>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="col">
+                        <!-- First name -->
+                        <div class="md-form">
+                            <% if(user.account_name === undefined) { %>
+                            <input type="text" id="account_name" required class="form-control">
+                            <label for="account_name">계좌의 은행명을 입력하세요. (국민 / 하나)</label>
+                            <% } else { %>
+                            <input type="text" value="<%= user.account_name %>" id="account_name" required
+                                class="form-control">
+                            <label for="account_name">국민 / 하나</label>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="md-form">
+                    <% if(user.account_Number === undefined) { %>
+                    <input type="text" id="account_Number" required class="form-control">
+                    <label for="account_Number">계좌번호를 입력하세요.</label>
+                    <% } else { %>
+                    <%  var a = user.account_Number.substr(0,3);
+                        var b = "****";
+                        var c = user.account_Number.substr(7,10);
+                        var d = a.concat(b,c); %>
+                    <input type="text" value="<%= d %>" id="account_Number" required class="form-control">
+                    <label for="account_Number">계좌번호</label>
+                    <% } %>
+                    <small id="account_Number" class="form-text text-muted mb-4"></small>
+                </div>
+
+                <!-- Sign up button -->
+                <button class="btn btn-outline-red btn-rounded btn-block my-4 waves-effect z-depth-0"
+                    type="submit">등록</button>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+    </div>
+    <!-- Material form register -->
+
+
+
+    <%- include("../footer"); %>
+
+    <script>
+        $(function () {
+            $("#infoUpdateForm").submit((event) => {
+                event.preventDefault();
+
+                const barcode_id = $("#barcode_id").val();
+                const account_name = $("#account_name").val();
+                const account_Number = $("#account_Number").val();
+                if (account_Number > 9999999999 && account_Number < 99999999999) {
+                    $.ajax({
+                        url: "/api/user/infoUpdate",
+                        type: "PUT",
+                        data: { barcode_id, account_name, account_Number }
+                    }).done(() => {
+                        location.href = "/api/user/userInfo";
+                    }).fail((request, status, error) => {
+                        alert(request.responseText);
+                    })
+                } else alert ("유효한 계좌 번호를 입력해주세요.");
+            })
+
+        });
+    </script>
+
+
+</body>
+
+</html>

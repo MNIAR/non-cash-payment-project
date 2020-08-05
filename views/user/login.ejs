@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../header"); %>
+
+<body>
+
+    <%- include("../menu"); %>
+    
+    <!-- Material form register -->
+    <div class="card z-depth-0">
+
+        <h5 class="card-header info-color white-text text-center py-4 secondary-color red lighten-1">
+            <strong>로그인</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0 1">
+
+            <!-- Form -->
+            <form id="LoginForm" class="text-center" required style="color: #757575;" action="#!">
+                
+                <div class="form-row">
+                    <div class="col">
+                        <!-- First name -->
+                        <div class="md-form">
+                            <input type="text" id="id" required class="form-control">
+                            <label for="id">아이디를 입력하세요.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="md-form">
+                    <input type="password" id="password" class="form-control"
+                        aria-describedby="materialRegisterFormPasswordHelpBlock">
+                    <label for="password">비밀번호를 입력하세요.</label>
+                    <small id="password" class="form-text text-muted mb-4">
+                    </small>
+                </div>
+
+                <!-- Sign up button -->
+                <button class="btn btn-outline-red btn-rounded btn-block my-4 waves-effect z-depth-0"
+                    type="submit">로그인</button>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+    </div>
+    <!-- Material form register -->
+
+    <%- include("../footer"); %>
+
+    <script>
+        $(function () {
+            $("#LoginForm").submit((event) => {
+                event.preventDefault();
+
+                const id = $("#id").val();
+                const password = $("#password").val();
+
+                $.ajax({
+                    url: "/api/user/login",
+                    type: "POST",
+                    data: { id, password }
+                }).done(() => {
+                    location.href = "/api/user/hello";
+                }).fail((request, status, error) => {
+                    alert(request.responseText);
+                })
+            })
+        });
+    </script>
+
+</body>
+
+</html>

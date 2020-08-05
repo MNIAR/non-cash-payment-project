@@ -1,0 +1,44 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark secondary-color pink lighten-1">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/api/user/hello"><%= user.student_id %> <%= user.name %></a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+        aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="basicExampleNav">
+
+        <!-- Links -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/api/user/hello">메인
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+        </ul>
+        <!-- Links -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/api/user/userInfo">정보</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/shopping/showShopping">매점</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/shopping/shoppingCart">장바구니</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/api/user/logout">로그아웃</a>
+            </li>
+        </ul>
+
+    </div>
+    <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../header"); %>
+
+<body>
+
+    <%- include("../user/menu"); %>
+
+    <script>
+
+    </script>
+
+    <ul class="list-group">
+        <% icecreams.forEach(icecream => { %>
+        <% if(icecream.quantity > 0) { %>
+        <li id="ok" class="list-group-item d-flex justify-content-between align-items-center"
+            value1="<%= icecream.name %>" , value2="<%= icecream.id %>" , value3="<%= icecream.price %>">
+            <%= icecream.name %> - <%= icecream.price %>원
+            <span class="badge badge-primary badge-pill">수량 - <%= icecream.quantity %>개</span>
+        </li>
+        <% } else { %>
+        <li class="list-group-item d-flex active justify-content-between align-items-center"
+            value1="<%= icecream.name %>" , value2="<%= icecream.id %>" , value3="<%= icecream.price %>">
+            <%= icecream.name %> - <%= icecream.price %>원
+            <span class="badge badge-danger badge-pill">수량 - <%= icecream.quantity %>개</span>
+        </li>
+        <% }}); %>
+
+        <%- include("../footer"); %>
+
+
+        <script>
+            $(function () {
+                $('.list-group-item').click((e) => {
+                    if (e.target.getAttribute("id")) {
+                        var result = confirm("장바구니에 등록하시겠습니까?");
+                        var name = e.target.getAttribute("value1");
+                        var m_id = e.target.getAttribute("value2");
+                        var price = e.target.getAttribute("value3");
+                        if (result) {
+                            $.ajax({
+                                url: "/api/shopping/shoppingCart",
+                                type: "PUT",
+                                data: { name, m_id, price }
+                            }).done(() => {
+                                alert("등록되었습니다.");
+                                location.href = "/api/shopping/icecream";
+                            }).fail((request, status, error) => {
+                                alert(request.responseText);
+                            })
+                        }
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>

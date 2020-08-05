@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../header"); %>
+
+<body>
+
+    <%- include("../menu"); %>
+
+    <!-- Material form register -->
+    <div class="card z-depth-0">
+
+        <h5 class="card-header info-color white-text text-center py-4 secondary-color red lighten-1">
+            <strong>회원가입</strong>
+        </h5>
+
+        <!--Card content-->
+        <div class="card-body px-lg-5 pt-0">
+
+            <!-- Form -->
+            <form id="signupForm" class="text-center" style="color: #757575;" action="#!">
+
+                <div class="form-row">
+                    <div class="col">
+                        <!-- First name -->
+                        <div class="md-form">
+                            <input type="text" id="name" required class="form-control">
+                            <label for="name">이름을 입력하세요.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <!-- First name -->
+                        <div class="md-form">
+                            <input type="text" id="student_id" required class="form-control">
+                            <label for="student_id">학번을 입력하세요.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col">
+                        <!-- First name -->
+                        <div class="md-form">
+                            <input type="text" id="id" required class="form-control">
+                            <label for="id">아이디를 입력하세요.</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="md-form">
+                    <input type="password" id="password" required class="form-control"
+                        aria-describedby="materialRegisterFormPasswordHelpBlock">
+                    <label for="password">비밀번호를 입력하세요.</label>
+                    <small id="password" class="form-text text-muted mb-4"></small>
+                </div>
+
+                <!-- Sign up button -->
+                <button class="btn btn-outline-red btn-rounded btn-block my-4 waves-effect z-depth-0"
+                    type="submit">회원가입</button>
+
+            </form>
+            <!-- Form -->
+
+        </div>
+
+    </div>
+    <!-- Material form register -->
+
+    <%- include("../footer"); %>
+
+    <script>
+        $(function () {
+            $("#signupForm").submit((event) => {
+                event.preventDefault();
+                // 등록
+                const name = $("#name").val();
+                const student_id = $("#student_id").val();
+                const id = $("#id").val();
+                const password = $("#password").val();
+                var verify_si = parseInt(student_id);
+                if ((verify_si > 1100 && verify_si < 1699) || (verify_si > 2100 && verify_si < 2699) || (verify_si > 3100 && verify_si < 3699) && !(verify_si % 100 == 0)) {
+                    $.ajax({
+                        url: "/api/user/signup",
+                        type: "POST",
+                        data: { name, student_id, id, password },
+                    }).done(() => {
+                        location.href = "/api/user/login";
+                    }).fail((request, status, error) => {
+                        alert(request.responseText);
+                    })
+
+                } else {
+                    alert("학번을 다시 확인해주세요.");
+                }
+            })
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../header"); %>
+
+
+<body>
+
+    <%- include("menu"); %>
+    <!-- mr-4 pr-3 -->
+    <ul class="list-group">
+        <div class="text-center py-2 px-4">
+        </div>
+        <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-user mr-4 pr-3"></i><%= user.student_id %> <%= user.name %>
+        </li>
+        <div class="text-center py-2 px-4">
+        </div>
+        <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-ice-cream mr-4 pr-3"></i>아이스크림
+        </li>
+        <%
+        if(cart) {
+        for(var i = 0; i < Object.keys(cart.merchandise).length; i++) {
+            if (cart.merchandise[i].m_id.substr(0,1) === "I") { %>
+        <h6><%= cart.merchandise[i].name %> - <%= cart.merchandise[i].price %>원<span class="badge badge-primary"
+                value="<%= cart.merchandise[i].time %>" value1="<%= cart.merchandise[i].m_id %>" value2="<%= cart.merchandise[i].price %>">삭제</span></h6>
+        <% }
+        }
+        } %>
+        <div class="text-center py-2 px-4">
+        </div>
+        <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-cocktail mr-4 pr-3"></i></i>음료수
+        </li>
+        <% if(cart) {
+        for(var i = 0; i < Object.keys(cart.merchandise).length; i++) {
+            if (cart.merchandise[i].m_id.substr(0,1) === "D") { %>
+        <h6><%= cart.merchandise[i].name %> - <%= cart.merchandise[i].price %>원<span class="badge badge-primary"
+                value="<%= cart.merchandise[i].time %>" value1="<%= cart.merchandise[i].m_id %>" value2="<%= cart.merchandise[i].price %>">삭제</span></h6>
+        <% }
+        }
+        } %>
+        <div class="text-center py-2 px-4">
+        </div>
+        <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-copyright mr-4 pr-3"></i>초콜릿
+        </li>
+        <% if(cart) {
+        for(var i = 0; i < Object.keys(cart.merchandise).length; i++) {
+            if (cart.merchandise[i].m_id.substr(0,1) === "C") { %>
+        <h6><%= cart.merchandise[i].name %> - <%= cart.merchandise[i].price %>원<span class="badge badge-primary"
+                value="<%= cart.merchandise[i].time %>" value1="<%= cart.merchandise[i].m_id %>" value2="<%= cart.merchandise[i].price %>">삭제</span></h6>
+        <% }
+        }
+        } %>
+        <div class="text-center py-2 px-4">
+        </div>
+        <li class="list-group-item">
+            <div class="md-v-line"></div><i class="fas fa-cookie-bite mr-4 pr-3"></i>과자
+        </li>
+        <% if(cart) {
+        for(var i = 0; i < Object.keys(cart.merchandise).length; i++) {
+            if (cart.merchandise[i].m_id.substr(0,1) === "S") { %>
+        <h6><%= cart.merchandise[i].name %> - <%= cart.merchandise[i].price %>원<span class="badge badge-primary"
+                value="<%= cart.merchandise[i].time %>" value1="<%= cart.merchandise[i].m_id %>" value2="<%= cart.merchandise[i].price %>">삭제</span></h6>
+        <% }
+        }
+        } %>
+    </ul>
+
+    <% if(cart.total > 0) { %>
+    <div class="text-center py-3 px-4">
+        <button type="button" onclick="location.href='/api/user/hello'"
+            class="btn btn-primary secondary-color pink lighten-1" style="align-content: center;">
+            &nbsp; &nbsp; <%= cart.total %>원 &nbsp; &nbsp;<span
+                class="badge badge-danger ml-2"></span>
+        </button>
+    </div>
+    <% } else { %>
+    <div class="text-center py-3 px-4">
+        <button type="button" onclick="location.href='/api/user/hello'"
+            class="btn btn-primary secondary-color pink lighten-1" style="align-content: center;">
+            &nbsp; &nbsp; 결제 &nbsp; &nbsp;<span
+                class="badge badge-danger ml-2"></span>
+        </button>
+    </div>
+    <% } %>
+
+    <% if(user.id == "MNIAR") { %>
+    <div class="text-center py-3 px-4">
+        <button type="button" id="pay" class="btn btn-primary secondary-color pink lighten-1"
+            style="align-content: center;" value='<%= cart %>'>
+            payment success<span class="badge badge-danger ml-2"></span>
+        </button>
+    </div>
+    <% } %>
+
+    <%- include("../footer"); %>
+
+</body>
+
+<script>
+    $(function () {
+        $('.badge').click((e) => {
+            var result = confirm("삭제하시겠습니까?");
+            if (result) {
+                var time = e.target.getAttribute("value");
+                var m_id = e.target.getAttribute("value1");
+                var price = e.target.getAttribute("value2");
+                $.ajax({
+                    url: "/api/shopping/shoppingCart",
+                    type: "DELETE",
+                    data: { m_id, time, price },
+                }).done(() => {
+                    alert("삭제되었습니다.");
+                    location.href = "/api/shopping/shoppingCart";
+                }).fail((request, status, error) => {
+                    alert(request.responseText);
+                })
+            }
+        });
+    });
+
+    $(function () {
+        $("#pay").click((e) => {
+            const cart = e.target.getAttribute("value");
+            $.ajax({
+                url: "/api/shopping/payment",
+                type: "PUT",
+            }).done(() => {
+                alert("결제 완료.");
+                location.href = "/api/user/hello";
+            }).fail((request, status, error) => {
+                alert(request.responseText);
+            })
+        })
+    })
+</script>
+
+</html>

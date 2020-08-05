@@ -1,0 +1,64 @@
+<div class="jumbotron z-depth-1 animated fadeIn">
+    <h5 style="padding-left: 20px; padding-bottom: 10px;"><B><B>성 &nbsp; &nbsp; &nbsp; &nbsp;명 :
+                <%= user.name %></B></B></h5>
+
+    <% if(user.student_id.substr(0,1) === "3") { %>
+    <h5 style="padding-left: 20px;"><B><B>유효기간 : 2018.3 ~ 2021.2</B></B></h5>
+
+    <% } else if(user.student_id.substr(0,1) === "2") { %>
+    <h5 style="padding-left: 20px;"><B><B>유효기간 : 2019.3 ~ 2022.2</B></B></h5>
+
+    <% } else if(user.student_id.substr(0,1) === "1") { %>
+    <h5 style="padding-left: 20px;"><B><B>유효기간 : 2020.3 ~ 2023.2</B></B></h5>
+    <% } %>
+    <% if(user.barcode_id === undefined || user.account_name === undefined || user.account_Number === undefined) { %>
+    <div class="text-center py-3 px-4">
+        <button type="button" onclick="location.href='/api/user/userInfo'"
+            class="btn btn-primary secondary-color pink lighten-1" style="align-content: center;">
+            '학생증 바코드 ID, 계좌 정보'를 <br>입력해주세요.<span class="badge badge-danger ml-2"></span>
+        </button>
+    </div>
+</div>
+
+<div>
+    <div class="text-center py-5 px-4">
+    </div>
+    <div class="text-center py-5 px-4">
+    </div>
+    <div class="text-center py-5 px-4">
+    </div>
+
+    <% } else { %>
+    <div class="text-center py-1 px-4">
+        <img id="barcode" width="90%" alt="유효한 바코드 아이디값을 입력해주세요"/>
+    </div>
+    <div class="text-center py-2 px-4">
+    </div>
+
+    <% if(user.account_name == "국민") { %>
+    <h5 class="text-left"><b><b><%= user.name %>님의 연결 계좌</B></B></h5>
+    <div class="text-center py-4 px-4 secondary-color grey lighten-2 ">
+        <img src="/kb.png" width="80%" />
+    </div>
+    <% } else { %>
+    <h5 class="text-left"><b><b><%= user.name %>님의 연결 계좌</B></B></h5>
+    <div class="text-center py-4 px-4 secondary-color grey lighten-2 ">
+        <img src="/hanacard.png" width="80%" />
+    </div>
+    <% } %>
+</div>
+
+<div style="text-align: center;">
+    <div class="text-center py-3 px-4 animated fadeIn">
+        <button type="button" onclick="location.href='/api/shopping/shoppingCart'"
+            class="btn btn-primary secondary-color pink lighten-1" style="align-content: center;">
+            &nbsp; &nbsp; &nbsp; 장바구니 &nbsp; &nbsp; &nbsp; <span class="badge badge-danger ml-2"></span>
+        </button>
+    </div>
+</div>
+<% } %>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io();
+</script>

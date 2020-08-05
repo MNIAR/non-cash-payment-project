@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("../header"); %>
+
+<head>
+  <style>
+    .dropdown-menu{
+      z-index: 99;
+    }
+    .a{
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body class="body">
+
+  <%- include("menu"); %>
+
+
+  <div
+    class="a" style="float: left; width: 50%; padding-left: 10px; padding-right: 5px; padding-bottom: 10px; padding-top: 20px;">
+
+    <!-- Card -->
+    <div class="card animated fadeIn">
+
+      <!-- Card image -->
+      <div class="view overlay">
+        <img class="card-img-top" src="/pig.png" alt="Card image cap">
+        <a href="icecream">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+      <!-- Card content -->
+      <div class="card-body" style="text-align: center;">
+        <button type="button" class="btn peach-gradient" onclick="location.href='/api/shopping/icecream'">등록</button>
+      </div>
+
+    </div>
+    <!-- Card -->
+
+  </div>
+
+  <div
+    style="float: left; width: 50%; padding-left: 5px; padding-right: 10px; padding-bottom: 10px; padding-top: 20px;">
+
+    <!-- Card -->
+    <div class="card animated fadeIn">
+
+      <!-- Card image -->
+      <div class="view overlay">
+        <img class="card-img-top" src="/drink.png" alt="Card image cap">
+        <a href="drink">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+      <!-- Card content -->
+      <div class="card-body" style="text-align: center;">
+        <button type="button" class="btn aqua-gradient" onclick="location.href='/api/shopping/drink'">등록</button>
+      </div>
+
+    </div>
+    <!-- Card -->
+
+  </div>
+  <div style="float: left; width: 50%; padding-left: 10px; padding-right: 5px;">
+
+    <!-- Card -->
+    <div class="card animated fadeIn">
+
+      <!-- Card image -->
+      <div class="view overlay">
+        <img class="card-img-top" src="/choco.png" alt="Card image cap">
+        <a href="chocolate">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+      <!-- Card content -->
+      <div class="card-body" style="text-align: center;">
+        <button type="button" class="btn btn-brown" onclick="location.href='/api/shopping/chocolate'">등록</button>
+      </div>
+
+    </div>
+    <!-- Card -->
+
+  </div>
+
+
+  <div style="float: left; width: 50%; padding-left: 5px; padding-right: 10px;">
+
+    <!-- Card -->
+    <div class="card animated fadeIn">
+
+      <!-- Card image -->
+      <div class="view overlay">
+        <img class="card-img-top" src="/snack.png" alt="Card image cap ">
+        <a href="snack">
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+
+      <!-- Card content -->
+      <div class="card-body" style="text-align: center;">
+        <button type="button" class="btn purple-gradient" onclick="location.href='/api/shopping/snack'">등록</button>
+      </div>
+
+    </div>
+    <!-- Card -->
+
+  </div>
+
+  <%- include("../footer"); %>
+
+  <script>
+    $(function () {
+      $("#createForm").submit((event) => {
+        event.preventDefault();
+        // 등록
+        const name = $("#name").val();
+        const id = $("#id").val();
+        const quantity = $("#quantity").val();
+        const price = $("#price").val();
+
+        $.ajax({
+          url: "/api/shopping",
+          type: "POST",
+          data: { name, id, quantity, price }
+        }).done(() => {
+          location.href = "/api/shopping/showShopping";
+        }).fail((request, status, error) => {
+          alert(request.responseText);
+        })
+      })
+    });
+  </script>
+
+</body>
+
+</html>

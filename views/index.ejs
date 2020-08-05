@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("header"); %>
+
+<head>
+  <style>
+    .body {
+      background-color: #f48fb1;
+    }
+  </style>
+</head>
+
+<body class="body">
+
+  <%- include("menu"); %>
+
+  <!-- <img src="/roof.png"> -->
+
+  <!-- Jumbotron -->
+    <div class="jumbotron text-center mdb-color pink lighten-3 white-text mx-0 mb-0 z-depth-0 ">
+
+    <div class="text-center py-5 px-4 secondary-color pink lighten-3">
+    </div>
+    <div class="text-center py-1 px-4 secondary-color pink lighten-3">
+    </div>
+    <div class="text-center py-1 px-4 secondary-color pink lighten-3">
+    </div>
+    <div class="text-center py-1 px-4 secondary-color pink lighten-3">
+    </div>
+    <div class="text-center py-1 px-4 secondary-color pink lighten-3">
+    </div>
+
+    <!-- Title -->
+    <h1 class="card-title h1 animated fadeIn">DIMI.C</h1>
+
+    <!-- Subtitle -->
+    <p class="my-2 h6 animated fadeIn">DIMIGO . CONVENEIENCE STORE</p>
+
+    <!-- Grid row -->
+    <div class="row d-flex justify-content-center animated fadeIn">
+
+      <div class="text-center py-3 px-4 secondary-color pink lighten-3">
+      </div>
+
+      <!-- Grid column -->
+      <div class="col-xl-7 pb-1">
+
+        <p class="card-text">DIMI.C는 디미고 매점의 <h4><B><B>'비현금 결제'</B></B></h4></p>
+        <p class="card-text">를 위한 프로젝트 사이트입니다.</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+    <hr class="my-4 rgba-white-light">
+
+    <div class="pt-2 animated fadeIn">
+      <button type="button" class="btn btn-outline-white" onclick="location.href='/api/user/login'">로그인 &nbsp; <i class="fas fa-user"></i></button>
+      <button type="button" class="btn btn-outline-white" onclick="location.href='/api/user/signup'">회원가입 &nbsp; <i class="fas fa-user-edit"></i></button>
+    </div>
+
+  </div>
+  <!-- Jumbotron -->
+
+  <%- include("footer"); %>
+
+</body>
+
+</html>
